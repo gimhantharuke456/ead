@@ -9,6 +9,17 @@ using EadBackend.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add CORS services
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Add MongoDB settings from appsettings.json
 builder.Services.Configure<MongoDatabaseSettings>(
     builder.Configuration.GetSection("MongoDB"));
@@ -67,6 +78,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Use CORS middleware
+app.UseCors("AllowAll");
 
 // Add authentication and authorization middleware
 app.UseAuthentication();

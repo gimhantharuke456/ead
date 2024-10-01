@@ -1,12 +1,27 @@
-import React from "react";
-import { Form, Input, Button, Card } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Card, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./Login.css";
+import UsersService from "../services/user.service";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    // Handle login logic
+  const [loading, setLoading] = useState(false);
+  const naviagate = useNavigate();
+  const onFinish = async (values) => {
+    setLoading(true);
+    await UsersService.login(values)
+      .then((res) => {
+        localStorage.setItem("userToken", res.data.token);
+        localStorage.setItem("admin", true);
+        naviagate("/");
+      })
+      .catch((err) => {
+        message.error(`Error while login ${err}`);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -40,7 +55,7 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" block>
+            <Button loading={loading} type="primary" htmlType="submit" block>
               Login
             </Button>
           </Form.Item>

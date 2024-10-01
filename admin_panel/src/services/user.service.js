@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5053/api"; // Adjust this to your API's base URL
+const API_URL = "http://localhost:5053/api";
 
 const UsersService = {
   getAllUsers: () => {

@@ -1,30 +1,51 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:5053/api";
+const token = localStorage.getItem("userToken");
 
 const UsersService = {
   getAllUsers: () => {
-    return axios.get(`${API_URL}/Users`);
+    return axios.get(`${API_URL}/Users`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   },
 
   createUser: (userData) => {
-    return axios.post(`${API_URL}/Users`, userData);
+    return axios.post(`${API_URL}/Users`, userData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   },
 
   getUserById: (id) => {
-    return axios.get(`${API_URL}/Users/${id}`);
+    return axios.get(`${API_URL}/Users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   },
 
   updateUser: (id, userData) => {
-    return axios.put(`${API_URL}/Users/${id}`, userData);
+    return axios.put(`${API_URL}/Users/${id}`, userData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   },
 
   deleteUser: (id) => {
-    return axios.delete(`${API_URL}/Users/${id}`);
+    return axios.delete(`${API_URL}/Users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   },
 
   login: (loginData) => {
-    return axios.post(`${API_URL}/Users/login`, loginData);
+    return axios.post(`${API_URL}/Users/login`, loginData); // No token needed for login
   },
 };
 

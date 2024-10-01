@@ -1,0 +1,6 @@
+@EadBackend_HostAddress = http://localhost:5053
+
+GET {{EadBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

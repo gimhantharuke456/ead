@@ -17,7 +17,7 @@ namespace EadBackend.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
         {
             var users = await _userService.GetAllAsync();

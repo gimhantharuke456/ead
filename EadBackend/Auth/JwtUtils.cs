@@ -16,7 +16,6 @@ namespace EadBackend.Auth
 
     public class JwtUtils : IJwtUtils
     {
-        readonly String key = "supersecretkey12345";
         private readonly IConfiguration _configuration;
 
         public JwtUtils(IConfiguration configuration)

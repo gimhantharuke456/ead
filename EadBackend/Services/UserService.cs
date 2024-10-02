@@ -60,13 +60,16 @@ namespace EadBackend.Services
             await _userRepository.DeleteAsync(id);
         }
 
-        public async Task<string> AuthenticateAsync(LoginDto loginDto)
+        public async Task<LoginResponse> AuthenticateAsync(LoginDto loginDto)
         {
             var user = await _userRepository.GetByEmailAsync(loginDto.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
                 throw new UnauthorizedAccessException("Invalid email or password");
-
-            return _jwtUtils.GenerateToken(user);
+            LoginResponse response = new LoginResponse();
+            response.token = _jwtUtils.GenerateToken(user);
+            response.id = user.Id;
+            response.role = user.Role;
+            return response;
         }
 
         private UserDto MapToDto(User user) => new UserDto

@@ -28,4 +28,11 @@ namespace EadBackend.DTOs
         public string Email { get; set; }
         public string Password { get; set; }
     }
+
+    public class LoginResponse
+    {
+        public string id { get; set; }
+        public string role { get; set; }
+        public string token { get; set; }
+    }
 }

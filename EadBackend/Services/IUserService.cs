@@ -9,6 +9,6 @@ namespace EadBackend.Services
         Task<UserDto> CreateAsync(CreateUserDto createUserDto);
         Task<UserDto> UpdateAsync(string id, UpdateUserDto updateUserDto);
         Task DeleteAsync(string id);
-        Task<string> AuthenticateAsync(LoginDto loginDto);
+        Task<LoginResponse> AuthenticateAsync(LoginDto loginDto);
     }
 }

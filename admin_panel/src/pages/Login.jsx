@@ -12,7 +12,9 @@ const Login = () => {
     setLoading(true);
     await UsersService.login(values)
       .then((res) => {
-        localStorage.setItem("userToken", res.data.token);
+        localStorage.setItem("userToken", res.data.token.token);
+        localStorage.setItem("userRole", res.data.token.role);
+        localStorage.setItem("id", res.data.token.id);
         localStorage.setItem("admin", true);
         naviagate("/");
       })

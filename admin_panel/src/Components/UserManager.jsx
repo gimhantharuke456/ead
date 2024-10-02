@@ -168,8 +168,9 @@ const UserManager = () => {
             rules={[{ required: true, message: "Please select the role!" }]}
           >
             <Select>
-              <Option value="admin">Admin</Option>
-              <Option value="user">User</Option>
+              <Option value="Admin">Admin</Option>
+              <Option value="User">User</Option>
+              <Option value="Vendor">Vendor</Option>
             </Select>
           </Form.Item>
         </Form>

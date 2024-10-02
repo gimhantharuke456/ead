@@ -37,7 +37,7 @@ namespace EadBackend.Services
             {
                 Name = createShopDto.Name,
                 ImageUrl = createShopDto.ImageUrl,
-                VendorId = vendorId,
+                VendorId = createShopDto.VendorId,
                 Address = createShopDto.Address,
                 ContactNumber = createShopDto.ContactNumber
             };
@@ -56,6 +56,7 @@ namespace EadBackend.Services
             shop.ImageUrl = updateShopDto.ImageUrl;
             shop.Address = updateShopDto.Address;
             shop.ContactNumber = updateShopDto.ContactNumber;
+            shop.VendorId = updateShopDto.VendorId;
 
             await _shopRepository.UpdateAsync(id, shop);
             return MapToDto(shop);
@@ -64,7 +65,7 @@ namespace EadBackend.Services
         public async Task DeleteAsync(string id, string vendorId)
         {
             var shop = await _shopRepository.GetByIdAsync(id);
-            if (shop == null || shop.VendorId != vendorId)
+            if (shop == null)
                 throw new UnauthorizedAccessException("Shop not found or you're not authorized to delete it.");
 
             await _shopRepository.DeleteAsync(id);

@@ -46,7 +46,7 @@ namespace EadBackend.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Vendor")]
+        [Authorize(Roles = "Admin,Vendor")]
         public async Task<ActionResult<ShopDto>> Create(CreateShopDto createShopDto)
         {
             var vendorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -55,7 +55,7 @@ namespace EadBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Vendor")]
+        [Authorize(Roles = "Admin,Vendor")]
         public async Task<ActionResult<ShopDto>> Update(string id, UpdateShopDto updateShopDto)
         {
             var vendorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -71,7 +71,7 @@ namespace EadBackend.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Vendor")]
+        [Authorize(Roles = "Admin,Vendor")]
         public async Task<IActionResult> Delete(string id)
         {
             var vendorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

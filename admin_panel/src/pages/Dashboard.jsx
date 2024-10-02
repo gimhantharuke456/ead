@@ -6,13 +6,16 @@ import {
   AppstoreOutlined,
 } from "@ant-design/icons";
 import UserManager from "../Components/UserManager";
+import { useNavigate } from "react-router-dom";
+import ShopManager from "../Components/ShopManager";
 
 const { Sider, Content } = Layout;
 
 const Dashboard = () => {
+  const role = localStorage.getItem("userRole");
   const [activeIndex, setActiveIndex] = useState(1);
   const [collapsed, setCollapsed] = useState(false);
-
+  const navigate = useNavigate();
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };
@@ -21,32 +24,57 @@ const Dashboard = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-          <Menu.Item
-            onClick={() => {
-              setActiveIndex(1);
-            }}
-            key="1"
-            icon={<UserOutlined />}
-          >
-            User Management
-          </Menu.Item>
+          {role === "Admin" && (
+            <Menu.Item
+              onClick={() => {
+                setActiveIndex(1);
+              }}
+              key="1"
+              icon={<UserOutlined />}
+            >
+              User Management
+            </Menu.Item>
+          )}
+          {role === "Admin" && (
+            <Menu.Item
+              onClick={() => {
+                setActiveIndex(2);
+              }}
+              key="2"
+              icon={<ShopOutlined />}
+            >
+              Vendor Management
+            </Menu.Item>
+          )}
+          {role === "Vendor" && (
+            <Menu.Item
+              onClick={() => {
+                setActiveIndex(3);
+              }}
+              key="3"
+              icon={<AppstoreOutlined />}
+            >
+              Item Management
+            </Menu.Item>
+          )}
           <Menu.Item
             onClick={() => {
               setActiveIndex(2);
             }}
-            key="2"
+            key="5"
             icon={<ShopOutlined />}
           >
-            Vendor Management
+            Order Management
           </Menu.Item>
           <Menu.Item
             onClick={() => {
-              setActiveIndex(3);
+              localStorage.clear();
+              navigate("/login");
             }}
-            key="3"
+            key="4"
             icon={<AppstoreOutlined />}
           >
-            Item Management
+            Logout
           </Menu.Item>
         </Menu>
       </Sider>
@@ -54,6 +82,7 @@ const Dashboard = () => {
         <Content style={{ margin: "16px" }}>
           <div style={{ padding: 24, minHeight: 360, background: "#fff" }}>
             {activeIndex === 1 && <UserManager />}
+            {activeIndex === 2 && <ShopManager />}
           </div>
         </Content>
       </Layout>

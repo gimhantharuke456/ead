@@ -9,10 +9,16 @@ namespace EadBackend.Services
         private readonly IOrderRepository _orderRepository;
         private readonly IShopItemRepository _shopItemRepository;
 
-        public OrderService(IOrderRepository orderRepository, IShopItemRepository shopItemRepository)
+        private readonly IUserRepository _userRepositary;
+
+        private readonly IShopRepository _shopRepositary;
+
+        public OrderService(IOrderRepository orderRepository, IShopItemRepository shopItemRepository, IUserRepository userRepository, IShopRepository shopRepository)
         {
             _orderRepository = orderRepository;
             _shopItemRepository = shopItemRepository;
+            _userRepositary = userRepository;
+            _shopRepositary = shopRepository;
         }
 
         public async Task<OrderDto> GetByIdAsync(string id)
@@ -21,11 +27,38 @@ namespace EadBackend.Services
             return MapToDto(order);
         }
 
-        public async Task<IEnumerable<OrderDto>> GetAllAsync()
+        public async Task<IEnumerable<OrderGetDto>> GetAllAsync()
         {
-            var orders = await _orderRepository.GetAllAsync();
-            return orders.Select(MapToDto);
+            var response = new List<OrderGetDto>(); // Initialize the response list
+            var orders = await _orderRepository.GetAllAsync(); // Get all orders from the repository
+
+            foreach (var order in orders)
+            {
+                // Fetch the associated user and shop based on their IDs
+                User user = await _userRepositary.GetByIdAsync(order.UserId);
+                Shop shop = await _shopRepositary.GetByIdAsync(order.ShopId);
+
+                // Create the OrderGetDto and populate it with order, user, and shop data
+                OrderGetDto dto = new OrderGetDto
+                {
+                    Id = order.Id,
+                    ShopItemId = order.ShopItemId,
+                    ShopId = order.ShopId,
+                    UserId = order.UserId,
+                    Quantity = order.Quantity,
+                    Address = order.Address,
+                    Status = order.Status,
+                    UserName = user?.FirstName ?? "" + user?.LastName ?? "", // Assuming 'Username' exists in the User model
+                    ShopName = shop?.Name ?? ""     // Assuming 'Name' exists in the Shop model
+                };
+
+                // Add the DTO to the response list
+                response.Add(dto);
+            }
+
+            return response; // Return the list of OrderGetDto
         }
+
 
         public async Task<OrderDto> CreateAsync(string userId, CreateOrderDto createOrderDto)
         {
@@ -85,6 +118,18 @@ namespace EadBackend.Services
             Quantity = order.Quantity,
             Address = order.Address,
             Status = order.Status
+        };
+        private OrderGetDto MapToGetDto(Order order, User user, Shop shop) => new OrderGetDto
+        {
+            Id = order.Id,
+            ShopItemId = order.ShopItemId,
+            ShopId = order.ShopId,
+            UserId = order.UserId,
+            Quantity = order.Quantity,
+            Address = order.Address,
+            Status = order.Status,
+            UserName = user.FirstName + user.LastName,
+            ShopName = shop.Name
         };
     }
 }

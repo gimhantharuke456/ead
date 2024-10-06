@@ -35,7 +35,12 @@ namespace EadBackend.Services
                 Username = createUserDto.Username,
                 Email = createUserDto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(createUserDto.Password),
-                Role = createUserDto.Role
+                Role = createUserDto.Role,
+                Address = createUserDto.Address,
+                PhoneNumber = createUserDto.PhoneNumber,
+                FirstName = createUserDto.FirstName,
+                LastName = createUserDto.LastName,
+                Gender = createUserDto.Gender
             };
 
             await _userRepository.CreateAsync(user);
@@ -50,10 +55,29 @@ namespace EadBackend.Services
             user.Username = updateUserDto.Username;
             user.Email = updateUserDto.Email;
             user.Role = updateUserDto.Role;
+            user.Address = updateUserDto.Address;
+            user.PhoneNumber = updateUserDto.PhoneNumber;
+            user.FirstName = updateUserDto.FirstName;
+            user.LastName = updateUserDto.LastName;
+            user.Gender = updateUserDto.Gender;
 
             await _userRepository.UpdateAsync(id, user);
             return MapToDto(user);
         }
+
+        private UserDto MapToDto(User user) => new UserDto
+        {
+            Id = user.Id,
+            Username = user.Username,
+            Email = user.Email,
+            Role = user.Role,
+            Address = user.Address,
+            PhoneNumber = user.PhoneNumber,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Gender = user.Gender
+        };
+
 
         public async Task DeleteAsync(string id)
         {
@@ -71,13 +95,5 @@ namespace EadBackend.Services
             response.role = user.Role;
             return response;
         }
-
-        private UserDto MapToDto(User user) => new UserDto
-        {
-            Id = user.Id,
-            Username = user.Username,
-            Email = user.Email,
-            Role = user.Role
-        };
     }
 }

@@ -21,6 +21,19 @@ namespace EadBackend.Models
         [BsonElement("Role")]
         public string Role { get; set; }
 
-        // Add any additional fields you need
+        [BsonElement("Address")]
+        public string Address { get; set; }
+
+        [BsonElement("PhoneNumber")]
+        public string PhoneNumber { get; set; }
+
+        [BsonElement("FirstName")]
+        public string FirstName { get; set; }
+
+        [BsonElement("LastName")]
+        public string LastName { get; set; }
+
+        [BsonElement("Gender")]
+        public string Gender { get; set; }
     }
 }

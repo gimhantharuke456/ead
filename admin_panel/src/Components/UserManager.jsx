@@ -87,6 +87,16 @@ const UserManager = () => {
       key: "email",
     },
     {
+      title: "First Name",
+      dataIndex: "firstName",
+      key: "firstName",
+    },
+    {
+      title: "Last Name",
+      dataIndex: "lastName",
+      key: "lastName",
+    },
+    {
       title: "Role",
       dataIndex: "role",
       key: "role",
@@ -162,6 +172,49 @@ const UserManager = () => {
               <Input.Password />
             </Form.Item>
           )}
+          <Form.Item
+            name="firstName"
+            label="First Name"
+            rules={[
+              { required: true, message: "Please input the first name!" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="lastName"
+            label="Last Name"
+            rules={[{ required: true, message: "Please input the last name!" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="address"
+            label="Address"
+            rules={[{ required: true, message: "Please input the address!" }]}
+          >
+            <Input.TextArea />
+          </Form.Item>
+          <Form.Item
+            name="phoneNumber"
+            label="Phone Number"
+            rules={[
+              { required: true, message: "Please input the phone number!" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="gender"
+            label="Gender"
+            rules={[{ required: true, message: "Please select the gender!" }]}
+          >
+            <Select>
+              <Option value="Male">Male</Option>
+              <Option value="Female">Female</Option>
+              <Option value="Other">Other</Option>
+            </Select>
+          </Form.Item>
           <Form.Item
             name="role"
             label="Role"

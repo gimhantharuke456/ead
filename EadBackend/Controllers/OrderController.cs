@@ -34,7 +34,6 @@ namespace EadBackend.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<OrderDto>> Create(CreateOrderDto createOrderDto)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -43,7 +42,6 @@ namespace EadBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<ActionResult<OrderDto>> Update(string id, UpdateOrderDto updateOrderDto)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -59,7 +57,7 @@ namespace EadBackend.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+
         public async Task<IActionResult> Delete(string id)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

@@ -17,7 +17,7 @@ namespace EadBackend.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
         {
             var users = await _userService.GetAllAsync();
@@ -25,7 +25,7 @@ namespace EadBackend.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+
         public async Task<ActionResult<UserDto>> GetById(string id)
         {
             var user = await _userService.GetByIdAsync(id);
@@ -42,7 +42,7 @@ namespace EadBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin,User,Vendor")]
+
         public async Task<ActionResult<UserDto>> Update(string id, UpdateUserDto updateUserDto)
         {
             try
@@ -57,7 +57,7 @@ namespace EadBackend.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Delete(string id)
         {
             await _userService.DeleteAsync(id);

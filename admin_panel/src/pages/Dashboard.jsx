@@ -11,6 +11,7 @@ import ShopManager from "../Components/ShopManager";
 import ShopProfile from "../Components/ShopProfile";
 import ShopItemManager from "../Components/ShopItemManager";
 import ShopsService from "../services/shop.service";
+import OrderManager from "../Components/OrderManager";
 
 const { Sider, Content } = Layout;
 
@@ -86,15 +87,17 @@ const Dashboard = () => {
               Item Management
             </Menu.Item>
           )}
-          <Menu.Item
-            onClick={() => {
-              setActiveIndex(2);
-            }}
-            key="5"
-            icon={<ShopOutlined />}
-          >
-            Order Management
-          </Menu.Item>
+          {role === "Vendor" && (
+            <Menu.Item
+              onClick={() => {
+                setActiveIndex(4);
+              }}
+              key="12"
+              icon={<AppstoreOutlined />}
+            >
+              Order Management
+            </Menu.Item>
+          )}
           <Menu.Item
             onClick={() => {
               localStorage.clear();
@@ -113,6 +116,7 @@ const Dashboard = () => {
             {activeIndex === 1 && <UserManager />}
             {activeIndex === 2 && <ShopManager />}
             {activeIndex === 3 && <ShopItemManager />}
+            {activeIndex === 4 && <OrderManager />}
             {activeIndex === 6 && <ShopProfile />}
           </div>
         </Content>

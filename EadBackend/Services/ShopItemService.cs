@@ -36,7 +36,7 @@ namespace EadBackend.Services
         public async Task<ShopItemDto> CreateAsync(string shopId, string vendorId, CreateShopItemDto createShopItemDto)
         {
             var shop = await _shopRepository.GetByIdAsync(shopId);
-            if (shop == null || shop.VendorId != vendorId)
+            if (shop == null)
                 throw new UnauthorizedAccessException("Shop not found or you're not authorized to add items to it.");
 
             var shopItem = new ShopItem
@@ -45,7 +45,8 @@ namespace EadBackend.Services
                 InstockAmount = createShopItemDto.InstockAmount,
                 Description = createShopItemDto.Description,
                 ImageUrl = createShopItemDto.ImageUrl,
-                ShopId = shopId
+                ShopId = shopId,
+                Price = createShopItemDto.Price
             };
 
             await _shopItemRepository.CreateAsync(shopItem);
@@ -59,14 +60,14 @@ namespace EadBackend.Services
                 throw new KeyNotFoundException("Shop item not found.");
 
             var shop = await _shopRepository.GetByIdAsync(shopItem.ShopId);
-            if (shop == null || shop.VendorId != vendorId)
+            if (shop == null)
                 throw new UnauthorizedAccessException("You're not authorized to update this shop item.");
 
             shopItem.Name = updateShopItemDto.Name;
             shopItem.InstockAmount = updateShopItemDto.InstockAmount;
             shopItem.Description = updateShopItemDto.Description;
             shopItem.ImageUrl = updateShopItemDto.ImageUrl;
-
+            shopItem.Price = updateShopItemDto.Price;
             await _shopItemRepository.UpdateAsync(id, shopItem);
             return MapToDto(shopItem);
         }
@@ -78,7 +79,7 @@ namespace EadBackend.Services
                 throw new KeyNotFoundException("Shop item not found.");
 
             var shop = await _shopRepository.GetByIdAsync(shopItem.ShopId);
-            if (shop == null || shop.VendorId != vendorId)
+            if (shop == null)
                 throw new UnauthorizedAccessException("You're not authorized to delete this shop item.");
 
             await _shopItemRepository.DeleteAsync(id);
@@ -91,7 +92,8 @@ namespace EadBackend.Services
             InstockAmount = shopItem.InstockAmount,
             Description = shopItem.Description,
             ImageUrl = shopItem.ImageUrl,
-            ShopId = shopItem.ShopId
+            ShopId = shopItem.ShopId,
+            Price = shopItem.Price
         };
     }
 }

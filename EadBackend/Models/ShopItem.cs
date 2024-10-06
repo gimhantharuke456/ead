@@ -15,6 +15,9 @@ namespace EadBackend.Models
         [BsonElement("InstockAmount")]
         public int InstockAmount { get; set; }
 
+        [BsonElement("Price")]
+        public double Price { get; set; }
+
         [BsonElement("Description")]
         public string Description { get; set; }
 

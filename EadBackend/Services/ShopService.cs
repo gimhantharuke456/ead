@@ -1,6 +1,7 @@
 using EadBackend.Repositories;
 using EadBackend.DTOs;
 using EadBackend.Models;
+using System.Diagnostics;
 
 namespace EadBackend.Services
 {
@@ -27,6 +28,7 @@ namespace EadBackend.Services
 
         public async Task<IEnumerable<ShopDto>> GetByVendorIdAsync(string vendorId)
         {
+            Debug.WriteLine("vendor id " + vendorId);
             var shops = await _shopRepository.GetByVendorIdAsync(vendorId);
             return shops.Select(MapToDto);
         }

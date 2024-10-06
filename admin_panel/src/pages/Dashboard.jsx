@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Layout, Menu } from "antd";
+import React, { useEffect, useState } from "react";
+import { Layout, Menu, message } from "antd";
 import {
   UserOutlined,
   ShopOutlined,
@@ -8,6 +8,9 @@ import {
 import UserManager from "../Components/UserManager";
 import { useNavigate } from "react-router-dom";
 import ShopManager from "../Components/ShopManager";
+import ShopProfile from "../Components/ShopProfile";
+import ShopItemManager from "../Components/ShopItemManager";
+import ShopsService from "../services/shop.service";
 
 const { Sider, Content } = Layout;
 
@@ -19,6 +22,21 @@ const Dashboard = () => {
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };
+
+  useEffect(() => {
+    if (role === "Vendor") {
+      ShopsService.getVendorShops()
+        .then((res) => {
+          if (res.data && res.data.length > 0) {
+            localStorage.setItem("shopId", res.data[0].id);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          message.error("Failed to load shop profile.");
+        });
+    }
+  }, [role]);
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -44,6 +62,17 @@ const Dashboard = () => {
               icon={<ShopOutlined />}
             >
               Vendor Management
+            </Menu.Item>
+          )}
+          {role === "Vendor" && (
+            <Menu.Item
+              onClick={() => {
+                setActiveIndex(6);
+              }}
+              key="6"
+              icon={<AppstoreOutlined />}
+            >
+              Shop Profile
             </Menu.Item>
           )}
           {role === "Vendor" && (
@@ -83,6 +112,8 @@ const Dashboard = () => {
           <div style={{ padding: 24, minHeight: 360, background: "#fff" }}>
             {activeIndex === 1 && <UserManager />}
             {activeIndex === 2 && <ShopManager />}
+            {activeIndex === 3 && <ShopItemManager />}
+            {activeIndex === 6 && <ShopProfile />}
           </div>
         </Content>
       </Layout>

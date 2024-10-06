@@ -44,10 +44,10 @@ namespace EadBackend.Controllers
         [Authorize(Roles = "Vendor")]
         public async Task<ActionResult<ShopItemDto>> Create(string shopId, CreateShopItemDto createShopItemDto)
         {
-            var vendorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             try
             {
-                var shopItem = await _shopItemService.CreateAsync(shopId, vendorId, createShopItemDto);
+                var shopItem = await _shopItemService.CreateAsync(shopId, "", createShopItemDto);
                 return CreatedAtAction(nameof(GetById), new { id = shopItem.Id }, shopItem);
             }
             catch (UnauthorizedAccessException)

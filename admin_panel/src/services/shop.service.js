@@ -45,7 +45,7 @@ const ShopsService = {
   },
 
   getVendorShops: () => {
-    return axios.get(`${API_URL}/Shops/vendor`, {
+    return axios.get(`${API_URL}/Shops/vendor/${localStorage.getItem("id")}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

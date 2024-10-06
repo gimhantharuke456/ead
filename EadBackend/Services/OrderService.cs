@@ -37,7 +37,7 @@ namespace EadBackend.Services
             {
                 ShopItemId = createOrderDto.ShopItemId,
                 ShopId = createOrderDto.ShopId,
-                UserId = userId,
+                UserId = createOrderDto.UserId,
                 Quantity = createOrderDto.Quantity,
                 Address = createOrderDto.Address,
                 Status = createOrderDto.Status

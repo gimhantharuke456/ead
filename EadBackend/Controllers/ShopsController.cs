@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using EadBackend.DTOs;
 using EadBackend.Services;
 using System.Security.Claims;
+using System.Diagnostics;
 
 namespace EadBackend.Controllers
 {
@@ -36,12 +37,12 @@ namespace EadBackend.Controllers
             return Ok(shop);
         }
 
-        [HttpGet("vendor")]
+        [HttpGet("vendor/{id}")]
         [Authorize(Roles = "Vendor")]
-        public async Task<ActionResult<IEnumerable<ShopDto>>> GetByVendor()
+        public async Task<ActionResult<IEnumerable<ShopDto>>> GetByVendor(string id)
         {
-            var vendorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var shops = await _shopService.GetByVendorIdAsync(vendorId);
+
+            var shops = await _shopService.GetByVendorIdAsync(id);
             return Ok(shops);
         }
 
@@ -58,10 +59,10 @@ namespace EadBackend.Controllers
         [Authorize(Roles = "Admin,Vendor")]
         public async Task<ActionResult<ShopDto>> Update(string id, UpdateShopDto updateShopDto)
         {
-            var vendorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             try
             {
-                var shop = await _shopService.UpdateAsync(id, vendorId, updateShopDto);
+                var shop = await _shopService.UpdateAsync(id, updateShopDto.VendorId, updateShopDto);
                 return Ok(shop);
             }
             catch (UnauthorizedAccessException)

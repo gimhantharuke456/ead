@@ -42,7 +42,7 @@ namespace EadBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,User,Vendor")]
         public async Task<ActionResult<UserDto>> Update(string id, UpdateUserDto updateUserDto)
         {
             try

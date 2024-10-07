@@ -37,6 +37,7 @@ namespace EadBackend.Services
                 // Fetch the associated user and shop based on their IDs
                 User user = await _userRepositary.GetByIdAsync(order.UserId);
                 Shop shop = await _shopRepositary.GetByIdAsync(order.ShopId);
+                ShopItem item = await _shopItemRepository.GetByIdAsync(order.ShopItemId);
 
                 // Create the OrderGetDto and populate it with order, user, and shop data
                 OrderGetDto dto = new OrderGetDto
@@ -49,7 +50,8 @@ namespace EadBackend.Services
                     Address = order.Address,
                     Status = order.Status,
                     UserName = user?.FirstName ?? "" + user?.LastName ?? "", // Assuming 'Username' exists in the User model
-                    ShopName = shop?.Name ?? ""     // Assuming 'Name' exists in the Shop model
+                    ShopName = shop?.Name ?? "",
+                    ItemName = item?.Name ?? ""
                 };
 
                 // Add the DTO to the response list

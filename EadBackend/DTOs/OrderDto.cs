@@ -24,6 +24,8 @@ namespace EadBackend.DTOs
         public string UserName { get; set; }
 
         public string ShopName { get; set; }
+
+        public string ItemName { get; set; }
     }
 
     public class CreateOrderDto

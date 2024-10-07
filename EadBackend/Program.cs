@@ -40,6 +40,7 @@ builder.Services.AddScoped<IShopItemRepository, ShopItemRepository>();
 builder.Services.AddScoped<IShopItemService, ShopItemService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
 // Add controllers

@@ -1,3 +1,11 @@
+/*******************************************************************************
+ * File: Models.cs
+ * Author: RPGT Rajapaksha (IT21048500)
+ * Date: 2024-10-07
+ * Description: This file contains the model classes for ShopItem and User
+ *              in the EAD Backend application.
+ ******************************************************************************/
+
 import axios from "axios";
 
 const API_URL = "http://localhost:5053/api";

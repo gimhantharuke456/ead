@@ -1,3 +1,11 @@
+/******************************************************************************
+ * File: OrdersController.cs
+ * Author: KT Navodya (IT21057106)
+ * Date: [Current Date]
+ * Description: This file contains the OrdersController class, which handles
+ *              HTTP requests related to order management in the EAD Backend application.
+ ******************************************************************************/
+
 import React, { useState, useEffect } from "react";
 import {
   Table,

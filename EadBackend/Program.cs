@@ -1,3 +1,11 @@
+/******************************************************************************
+* File: Program.cs
+* Author: IT21048500
+* Date: 2024-10-10
+* Description: This file contains the main program for the EAD Backend application.
+*              It sets up the application's configuration, services, and middleware.
+******************************************************************************/
+
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

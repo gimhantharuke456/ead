@@ -1,7 +1,7 @@
 /*******************************************************************************
  * File: IShopService.cs
  * Author: KT Navodya (IT21057106)
- * Date: [Current Date]
+ * Date: [2024-10-07]
  * Description: This file contains the IShopService interface, which defines
  *              the contract for shop-related business operations in the EAD Backend application.
  ******************************************************************************/

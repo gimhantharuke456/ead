@@ -1,7 +1,7 @@
 /******************************************************************************
 * File: Shop.cs
 * Author: KT Navodya (IT21057106)
-* Date: [Current Date]
+* Date: [2024-10-07]
 * Description: This file contains the Shop model class, which represents
 *              a shop in the EAD Backend application's MongoDB database.
 ******************************************************************************/

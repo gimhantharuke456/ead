@@ -1,7 +1,7 @@
 /******************************************************************************
 * File: ShopItemsController.cs
 * Author: KT Navodya (IT21057106)
-* Date: [Current Date]
+* Date: [2024-10-07]
 * Description: This file contains the ShopItemsController class, which handles
 *              HTTP requests related to shop item management in the EAD Backend application.
 ******************************************************************************/
